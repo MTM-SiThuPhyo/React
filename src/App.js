@@ -26,24 +26,32 @@ class App extends React.Component {
           {this.state.items.map(i => {
             return (
               <Item
+                key={i.id}
                 name={i.name}
                 price={i.price}
               />
             )
           })}
         </ul>
+        <input type="text" ref={this.nameRef} /><br />
+        <input type="text" ref={this.priceRef} /><br />
         <button onClick={this.add}>Add</button>
       </div>
     )
   }
 
+  nameRef = React.createRef();
+  priceRef = React.createRef();
+
   add = () => {
     let id = this.state.items.length + 1;
+    let name = this.nameRef.current.value;
+    let price = this.priceRef.current.value;
 
     this.setState({
       items: [
         ...this.state.items,
-        {id, name: `Item ${id}`, price: 0.01 * id}
+        { id, name, price }
       ]
     });
   }
